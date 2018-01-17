@@ -162,6 +162,21 @@ class GetFreeProxy(object):
             for tr in proxy_list[1:]:
                 yield ':'.join(tr.xpath('./td/text()')[0:2])
 
+    @staticmethod
+    def freeProxyEighth():
+        url = 'https://free-proxy-list.net/anonymous-proxy.html'
+        tree = getHtmlTree(url)
+
+        proxy_list = tree.xpath("//table[@id='proxylisttable']//tr")
+        for tr in proxy_list[1:]:
+            print tr
+            paras = tr.xpath('./td/text()')[0:2]
+            if len(paras) == 0:
+                continue
+            yield ':'.join(paras)
+
+
+
 if __name__ == '__main__':
     gg = GetFreeProxy()
     # for e in gg.freeProxyFirst():
@@ -181,5 +196,5 @@ if __name__ == '__main__':
 
     # for e in gg.freeProxySixth():
     #     print(e)
-    for e in gg.freeProxySeventh():
+    for e in gg.freeProxyEighth():
         print(e)
